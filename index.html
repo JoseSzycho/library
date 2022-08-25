@@ -5,7 +5,20 @@
     <link rel="stylesheet" href="./style.css">
     <title>Library</title>
 </head>
-<body>    
+<body>  
+    <div class="overlay"></div>
+    <div class="popup-window">
+        <form action="example.com/path" method="post">
+            <input type="text" id="title" placeholder="Title" required>
+            <input type="text" id="author" placeholder="Author" required>
+            <input type="number" id="pages-number" placeholder="No. of pages" required>
+            <div class="checkbox">
+                <label for="read-status">Did you read it?</label>
+                <input type="checkbox" id="read-status" value="isRead"> 
+            </div>
+            <button class="btn green" type="submit">Submit</button>
+        </form>
+    </div>
     <div class="header-container">
         <div class="header">
             <h1>library</h1>
@@ -20,7 +33,7 @@
                 <p>No. of pages</p>
                 <button class="btn green">Read</button>
                 <button class="btn gray">Remove</button>
-            </div>               
+            </div>
         </div>
     </div>
     <script src="./script.js"></script>
