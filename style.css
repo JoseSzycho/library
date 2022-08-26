@@ -134,11 +134,23 @@ form input, .checkbox>label{
     background-color: rgba(255, 30, 0, 0.616);
 }
 
-/*Add ths class to div.overlay to add opacity 
+/*Add ths class to div.c to add opacity 
 when adding a new book*/
 .on{
     background-color: rgba(0, 0, 0, 0.4);
     width: 100vw;
     height: 100vh;
     position: fixed;
+}
+
+/*Add this class to div.popup-window to make
+the window appear*/
+.active{
+    visibility: visible;
+}
+
+/*Add this class to div.popup-window to make
+the window disappear*/
+.not-active{
+    visibility: hidden;
 }

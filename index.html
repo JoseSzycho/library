@@ -6,9 +6,9 @@
     <title>Library</title>
 </head>
 <body>  
-    <div class="overlay"></div>
-    <div class="popup-window">
-        <form action="example.com/path" method="post">
+    <div class="overlay off" id="bodyOverlay" onclick="closePopupWindow()"></div>
+    <div class="popup-window not-active" id="newBookWindow">
+        <form id="newBookForm">
             <input type="text" id="title" placeholder="Title" required>
             <input type="text" id="author" placeholder="Author" required>
             <input type="number" id="pages-number" placeholder="No. of pages" required>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="main-container">
-        <button class="new-book-btn">+ Add a book</button>
+        <button class="new-book-btn" id="addBookButton">+ Add a book</button>
         <div class="books-container">
             <div class="book-card">
                 <p>Title</p>
