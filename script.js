@@ -57,11 +57,11 @@ function showBookInLibrary(){
     if(book.isRead == true) div.insertAdjacentHTML("beforeend" ,'<button class="btn green read-btn">Read</button>');
     if(book.isRead == false) div.insertAdjacentHTML("beforeend" ,'<button class="btn red read-btn">Not read</button>');
     
-    div.insertAdjacentHTML("beforeend" ,'<button class="btn gray">Remove</button>'); //add remove button
+    div.insertAdjacentHTML("beforeend" ,'<button class="btn gray rmv-btn">Remove</button>'); //add remove button
     bookContainerElement.appendChild(div); //append child to books container
 }
 
-function toggleReadButton(){
+function toggleReadButton(){ //Changes the read button color if read or not read
     if(this.classList.contains("red")){
         this.classList.remove('red');
         this.classList.add('green');
@@ -75,9 +75,20 @@ function toggleReadButton(){
     }
 }
 
-function addEventListenerToBookCard(){
-    let bookElement = document.querySelectorAll(".read-btn");
-    bookElement.forEach(el => el.addEventListener('click', toggleReadButton));
+function removeBook(){ //Removes a book only from DOM, not from object
+    this.parentElement.remove();
+}
+
+function addEventListenerToBookCard(){ //Add events to "read buttonn" and "remove button"
+    const readButtonElement = Array.from( //gets the button only from the last book-card
+        document.querySelectorAll('.read-btn')
+      ).pop();
+      readButtonElement.addEventListener('click', toggleReadButton);
+
+    const removeButtonElement = Array.from( //gets the button only from the last book-card
+        document.querySelectorAll('.rmv-btn')
+      ).pop();
+      removeButtonElement.addEventListener('click', removeBook);
 }
 
 function submitNewBook(){
