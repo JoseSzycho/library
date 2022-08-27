@@ -40,17 +40,21 @@ function addBookToLibrary(){
     myLibrary.push(book);
 }
 
-function showLibrary(){
+function showBookInLibrary(){
+    //Look at index.html "//Sample of book card structure//" the html
+    //we want to add every time a book is created
     const div = document.createElement("div");
     div.className = ("book-card");
-    
-    const book = myLibrary[0];
+    const book = myLibrary[myLibrary.length - 1]; //select last added book
     Object.keys(book).forEach((key) => {
+        if(key == "id") return;
+        if(key == "isRead") return;
         let p = document.createElement("p");
         p.innerText = book[key];
-        if(key != "id") div.appendChild(p);
+        div.appendChild(p);
     });
-    div.insertAdjacentHTML("beforeend" ,'<button class="btn green">Read</button>');
+    if(book.isRead == true) div.insertAdjacentHTML("beforeend" ,'<button class="btn green">Read</button>');
+    if(book.isRead == false) div.insertAdjacentHTML("beforeend" ,'<button class="btn red">Read</button>');
     div.insertAdjacentHTML("beforeend" ,'<button class="btn gray">Remove</button>');
     bookContainerElement.appendChild(div);
 }
@@ -59,7 +63,7 @@ function submitNewBook(){
     event.preventDefault(); //Disable refresh after submit
     addBookToLibrary();
     closePopupWindow();
-    showLibrary();
+    showBookInLibrary();
 }
 
 //Closing popup window
