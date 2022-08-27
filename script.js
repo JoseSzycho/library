@@ -5,8 +5,12 @@ function Book(title, author, pages, isRead){
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
-    this.id=title+author+pages;
+    this.id=title+author+pages; //in the future it can be used for not creating same book twice
 }
+
+var bodyOverlayElement = document.getElementById("bodyOverlay");
+var newBookWindowElement = document.getElementById("newBookWindow");
+var bookContainerElement = document.querySelector(".books-container");
 
 //Adding event listener to "add book button"
 const addBookButton = document.getElementById("addBookButton");
@@ -14,10 +18,6 @@ addBookButton.addEventListener("click", showPopupWindow);
 //Adding event listener to submit new book button
 const newBookForm = document.getElementById("newBookForm");
 newBookForm.addEventListener("submit", submitNewBook);
-
-var bodyOverlayElement = document.getElementById("bodyOverlay"); 
-var newBookWindowElement = document.getElementById("newBookWindow");
-var bookContainerElement = document.querySelector(".books-container");
 
 //Adding new Book functions
 function showPopupWindow(){
@@ -42,21 +42,42 @@ function addBookToLibrary(){
 
 function showBookInLibrary(){
     //Look at index.html "//Sample of book card structure//" the html
-    //we want to add every time a book is created
+    //we want to add this book-card every time a book is created
     const div = document.createElement("div");
     div.className = ("book-card");
     const book = myLibrary[myLibrary.length - 1]; //select last added book
-    Object.keys(book).forEach((key) => {
+    Object.keys(book).forEach((key) => { //create p elements with book information
         if(key == "id") return;
         if(key == "isRead") return;
         let p = document.createElement("p");
         p.innerText = book[key];
         div.appendChild(p);
     });
-    if(book.isRead == true) div.insertAdjacentHTML("beforeend" ,'<button class="btn green">Read</button>');
-    if(book.isRead == false) div.insertAdjacentHTML("beforeend" ,'<button class="btn red">Read</button>');
-    div.insertAdjacentHTML("beforeend" ,'<button class="btn gray">Remove</button>');
-    bookContainerElement.appendChild(div);
+    //add button if its read or not read
+    if(book.isRead == true) div.insertAdjacentHTML("beforeend" ,'<button class="btn green read-btn">Read</button>');
+    if(book.isRead == false) div.insertAdjacentHTML("beforeend" ,'<button class="btn red read-btn">Not read</button>');
+    
+    div.insertAdjacentHTML("beforeend" ,'<button class="btn gray">Remove</button>'); //add remove button
+    bookContainerElement.appendChild(div); //append child to books container
+}
+
+function toggleReadButton(){
+    if(this.classList.contains("red")){
+        this.classList.remove('red');
+        this.classList.add('green');
+        this.innerText = "Read";
+        return;
+    }
+    if(this.classList.contains("green")){
+        this.classList.remove('green');
+        this.classList.add('red');
+        this.innerText = "Not read";
+    }
+}
+
+function addEventListenerToBookCard(){
+    let bookElement = document.querySelectorAll(".read-btn");
+    bookElement.forEach(el => el.addEventListener('click', toggleReadButton));
 }
 
 function submitNewBook(){
@@ -64,6 +85,8 @@ function submitNewBook(){
     addBookToLibrary();
     closePopupWindow();
     showBookInLibrary();
+    addEventListenerToBookCard();
+    
 }
 
 //Closing popup window
