@@ -63,23 +63,30 @@ function showBookInLibrary(){
 }
 
 function toggleReadButton(){ //Changes the read button color if read or not read
+    const bookId = this.parentElement.id; //get book id code from book-card 
     if(this.classList.contains("red")){
         this.classList.remove('red');
         this.classList.add('green');
         this.innerText = "Read";
+        let book = myLibrary.find(book => book.id == bookId);
+        let index = myLibrary.indexOf(book);
+        myLibrary[index].isRead = true;
         return;
     }
     if(this.classList.contains("green")){
         this.classList.remove('green');
         this.classList.add('red');
         this.innerText = "Not read";
+        let book = myLibrary.find(book => book.id == bookId);
+        let index = myLibrary.indexOf(book);
+        myLibrary[index].isRead = false;
     }
 }
 
 function removeBook(){ //Removes a book only from DOM, not from object
-    const bookId = this.parentElement.id; //get book id code from book.card
+    const bookId = this.parentElement.id; //get book id code from book-card
     myLibrary = myLibrary.filter(book => book.id != bookId); //delete book from myLibrary array
-    this.parentElement.remove();
+    this.parentElement.remove(); //remove book.card
 }
 
 function addEventListenerToBookCard(){ //Add events to "read buttonn" and "remove button"
