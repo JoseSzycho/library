@@ -46,6 +46,7 @@ function showBookInLibrary(){
     const div = document.createElement("div");
     div.className = ("book-card");
     const book = myLibrary[myLibrary.length - 1]; //select last added book
+    div.setAttribute("id", book.id); //add attribute with book id
     Object.keys(book).forEach((key) => { //create p elements with book information
         if(key == "id") return;
         if(key == "isRead") return;
@@ -76,6 +77,8 @@ function toggleReadButton(){ //Changes the read button color if read or not read
 }
 
 function removeBook(){ //Removes a book only from DOM, not from object
+    const bookId = this.parentElement.id; //get book id code from book.card
+    myLibrary = myLibrary.filter(book => book.id != bookId); //delete book from myLibrary array
     this.parentElement.remove();
 }
 
